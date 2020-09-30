@@ -8,7 +8,6 @@ module.exports = buildSchema(`
     type Project {
         _id: ID!
         title: String!
-        shortDescription: String!
         description: String!
         languages: [String!]!
         thumbUrl: String!
@@ -17,7 +16,6 @@ module.exports = buildSchema(`
 
     input ProjectInputData {
         title: String!
-        shortDescription: String!
         description: String!
         languages: [String!]!
         thumbUrl: String!

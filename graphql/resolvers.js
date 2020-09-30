@@ -1,12 +1,13 @@
 const Project = require('../models/project');
-const validator = require('validator').default;
+const validation = require('../middlewares/createProjectValidation');
 
 module.exports = {
     createProject: async function({userInput}, req) {
 
+        validation(userInput);
+
         const project = new Project({
             title: userInput.title,
-            shortDescription: userInput.shortDescription,
             description: userInput.description,
             languages: userInput.languages,
             thumbUrl: userInput.thumbUrl,
@@ -16,11 +17,6 @@ module.exports = {
         const result = project.save();
 
         return result;
-
-        // const errors = [];
-
-        // if (!validator.isEmpty(userInput.title)) {
-        // }
 
     }
 };

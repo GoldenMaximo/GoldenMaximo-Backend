@@ -47,7 +47,16 @@ app.use((req, res, next) => {
 app.use('/graphql', graphqlHTTP({
     schema: graphqlSchema,
     rootValue: graphqlResolvers,
-    graphiql: true
+    graphiql: true,
+    formatError(err) {
+        if (!err.originalError) {
+            return err;
+        }
+        const { data } = err.originalError;
+        const message = err.message || 'An error occured.';
+        const code = err.originalError.code || 500;
+        return { message, status: code, data };
+    }
 }));
 
 app.use((error, req, res, next) => {
@@ -58,5 +67,5 @@ app.use((error, req, res, next) => {
 });
 
 mongoose.connect(MONGODB_URI).then(() => {
-    app.listen('8080');
+    app.listen('9000');
 }).catch(err => console.log('ATLAS CONNECTION ERROR: ', err));

@@ -18,9 +18,11 @@ module.exports = {
         const project = new Project({
             title: userInput.title,
             description: userInput.description,
-            languages: userInput.languages,
+            techStack: userInput.techStack,
             thumbUrl: userInput.thumbUrl,
-            imageUrls: userInput.imageUrls
+            imageUrls: userInput.imageUrls,
+            deployedAt: userInput.deployedAt ? userInput.deployedAt : '',
+            githubUrls: userInput.githubUrls
         });
 
         const result = project.save();
@@ -60,5 +62,34 @@ module.exports = {
             token,
             userId: user._id.toString()
         };
+    },
+
+    projects: async function({ page }, req) {
+        if (!page) {
+            page = 1;
+        }
+
+        const perPage = 2;
+
+        const totalProjects = await Project.find().countDocuments();
+
+        const projects = await Project
+            .find()
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * perPage)
+            .limit(2)
+            .populate('creator');
+
+        return {
+            projects: projects.map(e => {
+                return {
+                    ...e._doc,
+                    id: e._id.toString(),
+                    createdAt: e.createdAt.toISOString(),
+                    updatedAt: e.updatedAt.toISOString()
+                }
+            }),
+            totalProjects
+        }
     }
 };

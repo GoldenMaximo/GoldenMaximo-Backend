@@ -5,9 +5,16 @@ module.exports = buildSchema(`
         _id: ID!
         title: String!
         description: String!
-        languages: [String!]!
+        techStack: [String!]!
         thumbUrl: String!
         imageUrls: [String!]!
+        deployedAt: String
+        githubUrls: [String!]!
+    }
+
+    type ProjectData {
+        projects: [Project!]!
+        totalProjects: Int!
     }
 
     type User {
@@ -25,13 +32,16 @@ module.exports = buildSchema(`
     input ProjectInputData {
         title: String!
         description: String!
-        languages: [String!]!
+        techStack: [String!]!
         thumbUrl: String!
         imageUrls: [String!]!
+        deployedAt: String
+        githubUrls: [String!]!
     }
 
     type RootQuery {
         login(email: String!, password: String!): AuthData
+        projects(page: Int!): ProjectData!
     }
 
     type RootMutation {

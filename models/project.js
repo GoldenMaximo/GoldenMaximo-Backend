@@ -11,7 +11,7 @@ const projectSchema = new Schema(
             type: String,
             required: true
         },
-        languages: {
+        techStack: {
             type: Schema.Types.Array,
             required: true
         },
@@ -20,6 +20,11 @@ const projectSchema = new Schema(
             required: true
         },
         imageUrls: {
+            type: Schema.Types.Array,
+            required: true
+        },
+        deployedAt: String,
+        githubUrls: {
             type: Schema.Types.Array,
             required: true
         }

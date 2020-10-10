@@ -10,6 +10,7 @@ module.exports = buildSchema(`
         imageUrls: [String!]!
         deployedAt: String
         githubUrls: [String!]!
+        isMobile: Boolean!
     }
 
     type ProjectData {
@@ -37,6 +38,7 @@ module.exports = buildSchema(`
         imageUrls: [String!]!
         deployedAt: String
         githubUrls: [String!]!
+        isMobile: Boolean!
     }
 
     type RootQuery {

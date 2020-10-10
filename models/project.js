@@ -27,6 +27,10 @@ const projectSchema = new Schema(
         githubUrls: {
             type: Schema.Types.Array,
             required: true
+        },
+        isMobile: {
+            type: Schema.Types.Boolean,
+            required: true
         }
     },
     { timestamps: true }

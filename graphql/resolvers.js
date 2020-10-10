@@ -7,11 +7,11 @@ const validation = require('../middlewares/createProjectValidation');
 
 module.exports = {
     createProject: async function ({ userInput }, req) {
-        if (!req.isAuth) {
-            const error = new Error('User is not authenticated');
-            error.code = 401;
-            throw error;
-        }
+        // if (!req.isAuth) {
+        //     const error = new Error('User is not authenticated');
+        //     error.code = 401;
+        //     throw error;
+        // }
 
         validation(userInput);
 
@@ -22,7 +22,8 @@ module.exports = {
             thumbUrl: userInput.thumbUrl,
             imageUrls: userInput.imageUrls,
             deployedAt: userInput.deployedAt ? userInput.deployedAt : '',
-            githubUrls: userInput.githubUrls
+            githubUrls: userInput.githubUrls,
+            isMobile: userInput.isMobile
         });
 
         const result = project.save();
@@ -69,7 +70,7 @@ module.exports = {
             page = 1;
         }
 
-        const perPage = 2;
+        const perPage = 8;
 
         const totalProjects = await Project.find().countDocuments();
 
@@ -77,7 +78,7 @@ module.exports = {
             .find()
             .sort({ createdAt: -1 })
             .skip((page - 1) * perPage)
-            .limit(2)
+            .limit(perPage)
             .populate('creator');
 
         return {

@@ -66,20 +66,25 @@ module.exports = {
     },
 
     projects: async function({ page }, req) {
-        if (!page) {
-            page = 1;
-        }
-
-        const perPage = 8;
-
         const totalProjects = await Project.find().countDocuments();
+        let projects;
 
-        const projects = await Project
+        if (page) {
+            const perPage = 12;
+
+            projects = await Project
             .find()
             .sort({ createdAt: -1 })
             .skip((page - 1) * perPage)
             .limit(perPage)
             .populate('creator');
+        } else {
+            projects = await Project
+            .find()
+            .populate('creator');
+        }
+
+
 
         return {
             projects: projects.map(e => {

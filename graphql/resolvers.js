@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Project = require('../models/project');
 const validation = require('../middlewares/createProjectValidation');
+const validator = require('validator').default;
 
 module.exports = {
     createProject: async function ({ userInput }, req) {
@@ -16,12 +17,13 @@ module.exports = {
         validation(userInput);
 
         const project = new Project({
+            slug: userInput.title.toLowerCase().replace(/ /g, '-').replace(/'/g, ''),
             title: userInput.title,
             description: userInput.description,
             techStack: userInput.techStack,
             thumbUrl: userInput.thumbUrl,
             imageUrls: userInput.imageUrls,
-            deployedAt: userInput.deployedAt ? userInput.deployedAt : '',
+            deployedAt: userInput.deployedAt,
             githubUrls: userInput.githubUrls,
             isMobile: userInput.isMobile
         });
@@ -96,6 +98,17 @@ module.exports = {
                 }
             }),
             totalProjects
+        }
+    },
+
+    project: async function({ slug }, req) {
+        const project = await Project.findOne({ slug });
+
+        return {
+            ...project._doc,
+            id: project._id.toString(),
+            createdAt: project.createdAt.toISOString(),
+            updatedAt: project.updatedAt.toISOString()
         }
     }
 };

@@ -1,6 +1,11 @@
 const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
+    type Image {
+        imageName: String!
+        imageUrl: String!
+    }
+
     type Project {
         _id: ID!
         slug: String!
@@ -8,7 +13,7 @@ module.exports = buildSchema(`
         description: String!
         techStack: [String!]!
         thumbUrl: String!
-        imageUrls: [String!]!
+        images: [Image!]!
         deployedAt: String
         githubUrls: [String!]!
         isMobile: Boolean!
@@ -31,12 +36,17 @@ module.exports = buildSchema(`
         userId: String!
     }
 
+    input ImageInputData {
+        imageName: String!
+        imageUrl: String!
+    }
+
     input ProjectInputData {
         title: String!
         description: String!
         techStack: [String!]!
         thumbUrl: String!
-        imageUrls: [String!]!
+        images: [ImageInputData!]!
         deployedAt: String
         githubUrls: [String!]!
         isMobile: Boolean!

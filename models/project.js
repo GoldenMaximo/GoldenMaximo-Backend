@@ -23,7 +23,7 @@ const projectSchema = new Schema(
             type: String,
             required: true
         },
-        imageUrls: {
+        images: {
             type: Schema.Types.Array,
             required: true
         },

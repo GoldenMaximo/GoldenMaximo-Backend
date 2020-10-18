@@ -22,7 +22,7 @@ module.exports = {
             description: userInput.description,
             techStack: userInput.techStack,
             thumbUrl: userInput.thumbUrl,
-            imageUrls: userInput.imageUrls,
+            images: userInput.images,
             deployedAt: userInput.deployedAt,
             githubUrls: userInput.githubUrls,
             isMobile: userInput.isMobile

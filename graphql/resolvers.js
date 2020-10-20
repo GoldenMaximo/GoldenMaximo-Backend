@@ -8,11 +8,11 @@ const validator = require('validator').default;
 
 module.exports = {
     createProject: async function ({ userInput }, req) {
-        // if (!req.isAuth) {
-        //     const error = new Error('User is not authenticated');
-        //     error.code = 401;
-        //     throw error;
-        // }
+        if (!req.isAuth) {
+            const error = new Error('User is not authenticated');
+            error.code = 401;
+            throw error;
+        }
 
         validation(userInput);
 

@@ -4,27 +4,27 @@ module.exports = userInput => {
     const errors = [];
 
     if (validator.isEmpty(userInput.title)) {
-        errors.push({ message: 'Title must not be empty'});
+        errors.push({ message: 'Title must not be empty' });
     };
 
     if (validator.isEmpty(userInput.description)) {
-        errors.push({ message: 'Description must not be empty'});
+        errors.push({ message: 'Description must not be empty' });
     };
 
     if (!userInput.techStack.length) {
-        errors.push({ message: 'Tech stack must be provided'});
+        errors.push({ message: 'Tech stack must be provided' });
     };
 
     if (validator.isEmpty(userInput.thumbUrl)) {
-        errors.push({ message: 'Thumbnail URL must not be empty'});
+        errors.push({ message: 'Thumbnail URL must not be empty' });
     };
 
-    if (!userInput.imageUrls.length) {
-        errors.push({ message: 'Image URLs must not be empty'});
+    if (!userInput.images.length) {
+        errors.push({ message: 'Image URLs must not be empty' });
     };
 
     if (!userInput.githubUrls.length) {
-        errors.push({ message: 'Image URLs must not be empty'});
+        errors.push({ message: 'Repo URLs must not be empty' });
     };
 
     if (errors.length > 0) {
